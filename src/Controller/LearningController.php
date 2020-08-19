@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Twig\Extension\AbstractExtension;
 
 class LearningController extends AbstractController
 {
@@ -21,7 +23,8 @@ class LearningController extends AbstractController
     {
         if ($session->get('name')) {
             $name = $session->get('name');
-            return $this->render('aboutMe.html.twig', ['name' => $name]);
+            $date = new DateTime();
+            return $this->render('aboutMe.html.twig', ['name' => $name, 'date' => $date]);
         }
             return $this->forward('App\Controller\LearningController::showMyName');
     }
@@ -58,3 +61,4 @@ class LearningController extends AbstractController
         return $this->redirectToRoute('showMyName');
      }
 }
+
